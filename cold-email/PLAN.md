@@ -238,29 +238,28 @@ SEND_DELAY_MS=1500             # polite pacing between emails
 
 ---
 
-## Decisions to confirm before coding
+## Decisions (confirmed)
 
-1. **Email provider:** Resend vs Gmail/Workspace SMTP vs other?
-2. **Cursor storage:** Google Sheets `State` tab only, or also local `state.json` backup?
-3. **Default batch size:** 10 OK?
-4. **Advance cursor on failure?** Recommended: advance only on success/skip; leave failed id for retry (or mark failed and advance — your call).
-5. **Multiple emails per company:** send to all listed addresses, or first only?
-6. **Where to host the API** later (Fly, Railway, VPS)? Not blocking v1 local.
+1. **Email provider:** Gmail SMTP via env (`GMAIL_USER`, `GMAIL_APP_PASSWORD`).
+2. **Default batch size:** 20.
+3. **On failure:** retry once after 2–5s; if still failing, return company + error in `errors[]` (and log to Sheets). Cursor still advances past the batch.
+4. **Pacing:** send in waves of **5**, with **delay between each** email. All addresses on a row go in one message.
+5. **API:** Fastify.
 
 ---
 
 ## Success criteria for v1
 
-- [ ] `POST /send-batch` with `batchSize: 5` sends ≤5 personalized emails with CV attached.
-- [ ] Sheets gains one row per attempt with `company_name` + `sent_at`.
-- [ ] `replied_at` can be set via `POST /mark-replied`.
-- [ ] Second run continues from saved cursor (does not re-send already-sent ids).
-- [ ] Empty-email prospects are skipped safely.
-- [ ] Template file can be edited without code changes.
-- [ ] Dry-run works without sending real mail.
+- [x] `POST /send-batch` with `batchSize: 5` sends ≤5 personalized emails with CV attached.
+- [x] Sheets gains one row per attempt with `company_name` + `sent_at` (local `data/sends.json` fallback without Sheets).
+- [x] `replied_at` can be set via `POST /mark-replied`.
+- [x] Second run continues from saved cursor (does not re-send already-sent ids).
+- [x] Empty-email prospects are skipped safely.
+- [x] Template file can be edited without code changes.
+- [x] Dry-run works without sending real mail.
 
 ---
 
 ## Immediate next step after plan approval
 
-Implement **Phase 1–5** in `cold-email/` on this branch (or a dedicated feature branch), starting with Resend + Sheets unless you specify SMTP instead.
+**Done:** Phase 1–5 implemented under `cold-email/` (Gmail SMTP + Fastify + Sheets/local tracking). Remaining: drop in real `cv.pdf`, Gmail app password, Sheets service account, and finalize copy in `templates/outreach.md`.
