@@ -1,14 +1,15 @@
-# Cold Email Prospects (200)
+# Cold Email Prospects (1,000)
 
-Prospect list for cold outreach to **software companies, tech agencies, and startups** in Nigeria, Kenya, United Kingdom, Australia, South Africa, and Senegal.
+Prospect list for cold outreach to **software companies, tech agencies, and startups** with under ~100 employees in **English-speaking markets**.
 
-## Files
+## Primary deliverable
 
 | File | Description |
 |------|-------------|
-| `prospects-200.csv` | Spreadsheet-ready list (primary deliverable) |
-| `prospects-200.json` | Same data as JSON |
-| `build_list.py` | Script used to rebalance country quotas |
+| `prospects-1000.csv` | Spreadsheet-ready list (1,000 rows) |
+| `prospects-1000.json` | Same data as JSON |
+| `prospects-200.csv` / `.json` | Earlier 6-country subset (kept for reference) |
+| `raw/` | Intermediate research batches used to build the list |
 
 ## Columns
 
@@ -16,7 +17,7 @@ Prospect list for cold outreach to **software companies, tech agencies, and star
 |--------|---------|
 | `company_name` | Legal / trading name |
 | `location` | City / region |
-| `country` | Target market |
+| `country` | Market |
 | `website` | Company site when found |
 | `contact_emails` | Public emails (`;`-separated). Prefer careers / HR / founder / hello / info |
 | `contact_role` | Who the inbox is aimed at |
@@ -25,39 +26,45 @@ Prospect list for cold outreach to **software companies, tech agencies, and star
 | `source_platform` | `Indeed` or `LinkedIn` (discovery source) |
 | `source_job` | Job post that surfaced the company |
 
-## Coverage (200 total)
+## Coverage (1,000 total)
 
 | Country | Count |
 |---------|------:|
-| Nigeria | 46 |
-| United Kingdom | 40 |
-| Australia | 38 |
-| Kenya | 32 |
-| South Africa | 24 |
-| Senegal | 20 |
+| United States | 401 |
+| United Kingdom | 116 |
+| Australia | 78 |
+| Canada | 71 |
+| India | 65 |
+| Nigeria | 59 |
+| South Africa | 57 |
+| Kenya | 38 |
+| Philippines | 34 |
+| Ireland | 28 |
+| Singapore | 23 |
+| Ghana | 16 |
+| New Zealand | 14 |
 
-- **176 / 200** have at least one public contact email
-- Discovery mix: ~108 Indeed, ~92 LinkedIn
+- **317 / 1,000** have at least one public contact email
+- Discovery mix: ~232 Indeed, ~768 LinkedIn
+- English-speaking markets only (Senegal and other non-English markets excluded from this list)
 
 ## How prospects were found
 
-1. Searched **Indeed** and **LinkedIn Jobs** only for software / fullstack / frontend / backend / agency / startup roles in each market.
-2. Recorded the **employer** on each job post (not the recruiter’s client when unnamed).
-3. Visited company websites (contact, about, careers, privacy) and, where present, job-post application emails.
-4. Kept companies that appear **under ~100 employees** from public signals (LinkedIn size bands, About pages, job copy). Excluded clear large banks and global giants when obvious.
+1. Searched **Indeed** and **LinkedIn Jobs** only for software / fullstack / frontend / backend / agency / startup / Shopify / WordPress roles.
+2. Recorded the **employer** on each job post.
+3. Visited company websites when available for public contact emails.
+4. Kept companies that appear **under ~100 employees** from public signals. Excluded clear large enterprises (FAANG, major consultancies, large banks) when obvious.
 
 ## Important caveats
 
-- **Emails are public inboxes**, not guaranteed CEO personal addresses. Most small firms publish `hello@`, `info@`, `careers@`, or `hr@` only.
-- **Employee counts are estimates**. Re-check LinkedIn company size before sending.
-- **Senegal** has fewer LinkedIn/Indeed software listings than other markets; the Senegal set is smaller and includes agencies / nearshore recruiters that post Dakar roles.
-- Some rows have empty `contact_emails` — website forms only, or no crawlable inbox. Still useful for LinkedIn outreach.
-- Job posts and emails go stale; verify before campaigns.
-- Comply with local email marketing / spam laws (e.g. PECR/UK GDPR, Australia Spam Act, POPIA, NDPR).
+- **Most emails are empty or generic.** At this scale, personal CEO emails are rarely public. Enrich before campaigns (Hunter, Apollo, contact-page crawl).
+- **Employee counts are estimates.** Re-check LinkedIn company size before sending.
+- Job posts and emails go stale; verify before outreach.
+- Comply with local email marketing / spam laws (CAN-SPAM, PECR/UK GDPR, Australia Spam Act, CASL, POPIA, NDPR, etc.).
 
-## Suggested next steps (product build)
+## Suggested next steps
 
-1. Import CSV into a CRM or simple SQLite/Postgres table.
-2. Enrich missing emails (Hunter, Apollo, or manual contact-page crawl).
+1. Import `prospects-1000.csv` into CRM / DB.
+2. Enrich missing emails and verify headcount.
 3. Score by fit (agency vs product vs fintech) and country.
-4. Draft sequences and launch the cold-email system.
+4. Build sequences and launch the cold-email system.
